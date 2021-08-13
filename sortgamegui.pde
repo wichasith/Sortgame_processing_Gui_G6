@@ -1,5 +1,7 @@
 String[][] board = {{"a","b","c","d"},{"e","f","g","h"},{"i","j","k"," "}} ;
 int position = 0 ;
+String move_to = " " ;
+
 void setup() {
   size(400,300) ;
   background(255) ;
@@ -113,10 +115,107 @@ boolean check_result() {
 
 void switch_position() {
   if (position == 1) {
-    String temp = board[0][0] ;
-    board[0][0] = board[0][1] ;
-    board[0][1] = temp ;
-    position = 0 ;
+    check_near(0,0) ;
+    move(0,0) ;
+  }
+  else if (position == 2) {
+    check_near(0,1) ;
+    move(0,1) ;
+  }
+  else if (position == 3) {
+    check_near(0,2) ;
+    move(0,2) ;
+  }
+  else if (position == 4) {
+    check_near(0,3) ;
+    move(0,3) ;
+  }
+  else if (position == 5) {
+    check_near(1,0) ;
+    move(1,0) ;
+  }
+  else if (position == 6) {
+    check_near(1,1) ;
+    move(1,1) ;
+  }
+  else if (position == 7) {
+    check_near(1,2) ;
+    move(1,2) ;
+  }
+  else if (position == 8) {
+    check_near(1,3) ;
+    move(1,3) ;
+  }
+  else if (position == 9) {
+    check_near(2,0) ;
+    move(2,0) ;
+  }
+  else if (position == 10) {
+    check_near(2,1) ;
+    move(2,1) ;
+  }
+  else if (position == 11) {
+    check_near(2,2) ;
+    move(2,2) ;
+  }
+  else if (position == 12) {
+    check_near(2,3) ;
+    move(2,3) ;
+  }
+}
+
+void swap(int a,int b,int c , int d) {
+  String temp = board[a][b] ;
+  board[a][b] = board[c][d] ;
+  board[c][d] = temp ;
+  position = 0 ;
+  
+}
+
+String check_near(int i, int j) {
+  if(board[i][j] != " "){
+    if(i + 1 < 3){
+      if ( board[i+1][j] == " " ) {
+        move_to = "move down" ;
+        print();
+      }
+    }
+    if(i - 1 > -1){
+    if ( board[i-1][j] == " " ) {
+      move_to = "move up" ;
+    }
+    }
+    if(j + 1 < 4){
+    if ( board[i][j+1] == " " ) {
+      move_to = "move right" ;
+    }
+    }
+    if(j - 1 > -1){
+    if ( board[i][j-1] == " " ) {
+      move_to = "move left" ;
+    }
+    }
   
   }
+return move_to ;
+}
+
+void move(int i , int j) {
+  if (move_to == "move up"){
+    swap(i,j,i-1,j) ;
+    move_to = "" ;
+  }
+  else if (move_to == "move down"){
+    swap(i,j,i+1,j) ;
+    move_to = "" ;
+  } 
+  else if (move_to == "move right"){
+    swap(i,j,i,j+1) ;
+    move_to = "" ;
+  } 
+  else if (move_to == "move left"){
+    swap(i,j,i,j-1) ;
+    move_to = "" ;
+  } 
+  
 }
